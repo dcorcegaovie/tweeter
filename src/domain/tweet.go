@@ -8,6 +8,7 @@ import (
 
 type PrintableTweet interface {
 	PrintableTweet() string
+	DecorateTweet()
 	GetUser() string
 	GetText() string
 	GetDate() *time.Time
@@ -28,10 +29,10 @@ func (tweet *Tweet) GetId() int {
 }
 
 type Tweet struct {
-	Id   int
-	User string
-	Text string
-	Date *time.Time
+	Id   int        `json: "id"`
+	User string     `json: "user"`
+	Text string     `json: "text"`
+	Date *time.Time `json: "date"`
 }
 
 type TextTweet struct {
@@ -40,12 +41,18 @@ type TextTweet struct {
 
 type ImageTweet struct {
 	Tweet
-	Url string
+	Url string `json: "url" binding: "required"`
 }
 
 type QuoteTweet struct {
-	Tweet       Tweet
-	QuotedTweet PrintableTweet
+	Tweet
+	QuotedTweet PrintableTweet `json: "quotedTweet" binding:"required"`
+}
+
+func (tweet *Tweet) DecorateTweet() {
+	var time time.Time = time.Now()
+	tweet.Id = rand.Int()
+	tweet.Date = &time
 }
 
 func NewSimpleTweet(user string, text string) Tweet {

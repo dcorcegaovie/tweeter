@@ -1,8 +1,8 @@
 package service_test
 
 import (
-	"github.com/tweet_manager/src/domain"
-	"github.com/tweet_manager/src/service"
+	"github.com/tweeter/src/domain"
+	"github.com/tweeter/src/service"
 	"testing"
 )
 

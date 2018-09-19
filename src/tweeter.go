@@ -2,13 +2,28 @@ package main
 
 import (
 	"github.com/abiosoft/ishell"
-	"github.com/tweet_manager/src/domain"
-	"github.com/tweet_manager/src/service"
+	"github.com/tweeter/src/domain"
+	"github.com/tweeter/src/service"
+	"strconv"
 )
+
+var TweetManager service.TweetManager
+var Quit chan bool
+
+func InitializeService() {
+	memoryTweetWriter := service.NewMemoryTweetWriter()
+	tweetWriter := service.NewChannelTweetWriter(memoryTweetWriter)
+	TweetManager = service.NewTweetManager(tweetWriter)
+	Quit = make(chan bool)
+}
 
 func main() {
 	userManager := service.NewUserManager()
-	tweetManager := service.NewTweetManager()
+	memoryTweetWriter := service.NewMemoryTweetWriter()
+	tweetWriter := service.NewChannelTweetWriter(memoryTweetWriter)
+
+	tweetManager := service.NewTweetManager(tweetWriter)
+	quit := make(chan bool)
 
 	shell := ishell.New()
 	shell.SetPrompt("Tweeter >> ")
@@ -47,14 +62,14 @@ func main() {
 	shell.AddCmd(&ishell.Cmd{
 		Name: "login",
 		Help: "Log in a registered user",
-		Func: func() {
+		Func: func(c *ishell.Context) {
 			defer c.ShowPrompt(true)
 
-			c.Print("Enter your nickname")
-			nickname := c.ReadLine()
+			// c.Print("Enter your nickname")
+			// nickname := c.ReadLine()
 
-			c.Print("Enter your password")
-			password := c.ReadLine()
+			// c.Print("Enter your password")
+			// password := c.ReadLine()
 
 			// _, err := userManager.Login(nickname, password)
 

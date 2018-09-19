@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/tweet_manager/src/domain"
+	"github.com/tweeter/src/domain"
 )
 
 type MemoryTweetWriter struct {

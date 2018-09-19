@@ -2,7 +2,7 @@ package service
 
 import (
 	"errors"
-	"github.com/tweet_manager/src/domain"
+	"github.com/tweeter/src/domain"
 )
 
 var userManager UserManager

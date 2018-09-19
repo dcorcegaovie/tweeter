@@ -1,7 +1,7 @@
 package domain_test
 
 import (
-	"github.com/tweet_manager/src/domain"
+	"github.com/tweeter/src/domain"
 	"testing"
 )
 
